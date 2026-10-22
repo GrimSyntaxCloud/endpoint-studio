@@ -1,6 +1,6 @@
 # Endpoint Studio
 
-[Live demo](https://black-beach-00f091d0f.5.azurestaticapps.net) · [API guide](API.md)
+[Prepared deployment URL — not published yet](https://black-beach-00f091d0f.5.azurestaticapps.net) · [API guide](API.md)
 
 An interactive REST API workbench recovered from Andres Macias's [WEB 420 coursework](https://github.com/GrimSyntaxCloud/web-420). Create a private demo workspace, choose a resource, send JSON requests and inspect real server responses. The design pairs a precise instrument-panel layout with a spirograph, kinetic heading, spring-like button feedback and split-flap-style response codes.
 

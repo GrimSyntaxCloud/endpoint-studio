@@ -119,6 +119,22 @@ test("teams retain players, invoices compute server totals, and customer edits p
     (await agent.get("/api/customers/demo/invoices").set(a.auth)).body.length,
     1,
   );
+  const second = (
+    await agent
+      .post("/api/customers")
+      .set(a.auth)
+      .send({ firstName: "E", lastName: "F", userName: "second" })
+      .expect(201)
+  ).body;
+  await agent
+    .put("/api/customers/" + second.id)
+    .set(a.auth)
+    .send({ firstName: "E", lastName: "F", userName: "demo" })
+    .expect(409);
+  assert.equal(
+    (await agent.get("/api/customers/" + second.id).set(a.auth)).body.userName,
+    "second",
+  );
 });
 test("signup hashes the submitted password, rejects duplicates, and throttles failed logins", async () => {
   const { agent, store } = setup(),

@@ -171,7 +171,15 @@ function createApp({ store, now = () => Date.now() }) {
     const result = await change(req, (w) => {
       const row = w.records[kind].find((r) => r.id === id);
       if (!row) fail(404, "Record not found.");
-      if (kind === "customers") delete data.invoices;
+      if (kind === "customers") {
+        if (
+          w.records[kind].some(
+            (r) => r.id !== id && r.userName === data.userName,
+          )
+        )
+          fail(409, "Username already exists.");
+        delete data.invoices;
+      }
       Object.assign(row, data);
       return row;
     });
