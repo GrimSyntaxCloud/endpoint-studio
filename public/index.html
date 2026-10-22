@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Endpoint Studio — an interactive REST API workbench with private demo workspaces."
+    />
+    <title>Endpoint Studio — Make contact.</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.mjs"></script>
+  </head>
+  <body>
+    <a href="#workbench" class="skip">Skip to workbench</a>
+    <aside class="rail">
+      <a href="#" class="mark" aria-label="Endpoint Studio home"
+        >e<span>↗</span></a
+      ><span class="rail-label">A PLACE TO MAKE THINGS TALK</span
+      ><a
+        href="https://github.com/GrimSyntaxCloud/endpoint-studio"
+        class="rail-source"
+        aria-label="View source"
+        >↗</a
+      >
+    </aside>
+    <div class="shell">
+      <header>
+        <a href="#" class="wordmark">endpoint<span>studio</span></a>
+        <nav>
+          <a href="#workbench">Workbench</a
+          ><a href="#field-notes">Field notes</a
+          ><button id="motion" aria-pressed="false">Motion on</button>
+        </nav>
+        <span class="system-status"><i></i> REST / JSON</span>
+      </header>
+      <main>
+        <section class="hero">
+          <div class="hero-text">
+            <p class="eyebrow">EXPERIMENT № 420 / THE REQUEST LAB</p>
+            <h1>
+              <span>MAKE</span><br /><span
+                >CONTACT<span class="dot">.</span></span
+              >
+            </h1>
+            <p>
+              Send something. See what comes back.<br />A hands-on playground
+              for the conversations<br />that make applications work.
+            </p>
+            <a href="#workbench" class="square-link"
+              >Enter the workbench <span>↗</span></a
+            >
+          </div>
+          <div class="orbit-card">
+            <div class="orbit-caption">
+              <span>REQUEST → RESPONSE</span><span>LIVE SYSTEM STUDY</span>
+            </div>
+            <svg id="orbit" viewBox="0 0 400 400" aria-hidden="true">
+              <g id="spiro"></g>
+              <circle cx="200" cy="200" r="45" fill="#ef5d35" />
+              <path
+                d="M181 205 H220 M207 191 L221 205 L207 219"
+                fill="none"
+                stroke="#161918"
+                stroke-width="5"
+              />
+            </svg>
+            <div class="orbit-bottom">
+              <span>SMALL REQUEST.<br />POSSIBLE CONNECTION.</span><b>01—05</b>
+            </div>
+          </div>
+        </section>
+        <section class="readout" aria-label="Demo characteristics">
+          <div><span>RESOURCE FAMILIES</span><strong>05</strong></div>
+          <div>
+            <span>YOUR DATA LIFETIME</span><strong>96<small>H</small></strong>
+          </div>
+          <div><span>MONTHLY HOSTING COST</span><strong>$0</strong></div>
+          <div>
+            <span>DEMO STATUS</span><strong id="health">CHECKING</strong>
+          </div>
+        </section>
+        <section class="workbench" id="workbench">
+          <div class="section-title">
+            <div>
+              <p class="eyebrow">01 / TURN CURIOSITY INTO A REQUEST</p>
+              <h2>The <em>workbench.</em></h2>
+            </div>
+            <button id="workspace" class="primary">
+              Start private workspace ↗
+            </button>
+          </div>
+          <div class="session-bar">
+            <span id="workspace-status"
+              >Sample catalog available. Start a workspace to run
+              requests.</span
+            ><button id="delete-workspace" hidden>Delete my workspace</button>
+          </div>
+          <div class="bench-grid">
+            <aside class="resource-nav">
+              <p class="eyebrow">CHOOSE A RESOURCE</p>
+              <div id="resource-buttons"></div>
+              <div class="hint">
+                <span>↗</span>
+                <p>
+                  Permanent samples are read-only. Create your own records to
+                  edit, connect, and delete.
+                </p>
+              </div>
+            </aside>
+            <div class="request-pane">
+              <div class="pane-top">
+                <span>REQUEST</span><span id="request-number">001</span>
+              </div>
+              <label for="scenario">Try a conversation</label
+              ><select id="scenario">
+                <option value="list">List records</option>
+                <option value="create">Create a record</option>
+                <option value="get">Read one record</option>
+                <option value="update">Update a record</option>
+                <option value="delete">Delete a record</option>
+              </select>
+              <div class="request-line">
+                <label class="sr-only" for="method">HTTP method</label
+                ><select id="method">
+                  <option>GET</option>
+                  <option>POST</option>
+                  <option>PUT</option>
+                  <option>DELETE</option></select
+                ><label class="sr-only" for="path">API path</label
+                ><input
+                  id="path"
+                  value="/api/composers"
+                  spellcheck="false"
+                  maxlength="200"
+                />
+              </div>
+              <label for="payload"
+                >JSON payload <span>Used for POST and PUT</span></label
+              ><textarea
+                id="payload"
+                spellcheck="false"
+                rows="11"
+                maxlength="40000"
+              >
+{}</textarea>
+              <div class="request-actions">
+                <button id="send" class="primary" disabled>
+                  Send request <span>↗</span></button
+                ><button id="use-id" hidden>Use returned ID</button>
+              </div>
+              <p id="request-note" class="request-note">
+                Only requests to this demo’s own API are permitted.
+              </p>
+            </div>
+            <div class="response-pane">
+              <div class="pane-top">
+                <span>RESPONSE</span
+                ><span
+                  class="response-indicator"
+                  id="response-indicator"
+                ></span>
+              </div>
+              <div class="response-metrics">
+                <strong id="status-code">— — —</strong
+                ><span id="duration">WAITING FOR A REQUEST</span>
+              </div>
+              <pre id="response" tabindex="0" aria-label="API response">
+// Your next discovery starts here.
+// Start a workspace, choose a resource,
+// and send your first request.</pre>
+              <div class="response-foot">
+                <span id="response-size">0 BYTES</span
+                ><button id="copy">Copy response</button>
+              </div>
+              <p id="feedback" role="status"></p>
+            </div>
+          </div>
+        </section>
+        <section class="field-notes" id="field-notes">
+          <div>
+            <p class="eyebrow">02 / UNDER THE SURFACE</p>
+            <h2>Real endpoints.<br /><em>Room to explore.</em></h2>
+            <p>
+              Recovered from Andres’s REST API coursework. A new interface makes
+              the original composers, people, teams, customer invoices, and
+              signup/login exercises tangible.
+            </p>
+          </div>
+          <div class="note-list">
+            <article>
+              <span>01</span>
+              <h3>Your own small world.</h3>
+              <p>
+                Each private workspace has an unguessable access token. Other
+                visitors cannot browse your records. Use fictional details and a
+                throwaway demo password.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Built to forget.</h3>
+              <p>
+                Visitor workspaces expire 96 hours after creation. Edits do not
+                extend the deadline. Permanent fictional samples remain
+                available.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>A clear boundary.</h3>
+              <p>
+                Signup and login demonstrate password verification inside your
+                workspace; they are not a production identity service. This is a
+                learning demo.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <span>ENDPOINT STUDIO / ANDRES × AI</span
+        ><a href="https://github.com/GrimSyntaxCloud/endpoint-studio"
+          >Read the source and API guide ↗</a
+        >
+      </footer>
+    </div>
+  </body>
+</html>
