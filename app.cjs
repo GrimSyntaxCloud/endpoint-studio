@@ -43,7 +43,9 @@ function createApp({ store, now = () => Date.now() }) {
     res.status(201).json({ token: secret, createdAt, expiresAt });
   });
   async function workspace(req) {
-    const bearer = req.get("Authorization")?.match(/^Bearer ([\w-]{43})$/)?.[1];
+    const bearer = req
+      .get("X-Demo-Authorization")
+      ?.match(/^Bearer ([\w-]{43})$/)?.[1];
     if (!bearer) fail(401, "Start a private workspace first.");
     const w = await store.get(hash(bearer));
     if (!w || +new Date(w.expiresAt) <= now())

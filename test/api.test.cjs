@@ -15,7 +15,7 @@ async function workspace(agent) {
   return {
     token: r.body.token,
     expires: r.body.expiresAt,
-    auth: { Authorization: "Bearer " + r.body.token },
+    auth: { "X-Demo-Authorization": "Bearer " + r.body.token },
   };
 }
 test("workspaces isolate records and expire at a fixed 96-hour boundary", async () => {

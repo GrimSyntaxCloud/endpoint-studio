@@ -1,6 +1,6 @@
 # API workbench guide
 
-Create a workspace with `POST /api/workspaces` and an empty JSON object. The response contains a `token` and immutable `expiresAt`. Supply `Authorization: Bearer <token>` on all following workspace requests. The browser workbench handles this for you; never paste a real database credential into it.
+Create a workspace with `POST /api/workspaces` and an empty JSON object. The response contains a `token` and immutable `expiresAt`. Supply `X-Demo-Authorization: Bearer <token>` on all following workspace requests. The browser workbench handles this for you; never paste a real database credential into it.
 
 | Method             | Path                                                             | Behavior                                                    |
 | ------------------ | ---------------------------------------------------------------- | ----------------------------------------------------------- |

@@ -44,7 +44,7 @@ async function api(path, options = {}) {
     ...options,
     headers: {
       "Content-Type": "application/json",
-      ...(session ? { Authorization: `Bearer ${session}` } : {}),
+      ...(session ? { "X-Demo-Authorization": `Bearer ${session}` } : {}),
     },
   });
   const data = await response.json();

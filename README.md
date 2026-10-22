@@ -45,3 +45,5 @@ Original CSS, SVG and native Web Animations keep the animation layer dependency-
 Original coursework: Andres Macias, WEB 420, with instructor Richard Krasso credited in the source repository. Recovery, new UI and security repairs developed by Andres with AI assistance. This repository contains fresh maintained source, not the historical Git history or embedded credential.
 
 Tests cover workspace isolation and expiry, sample preservation, malformed input, teams, invoices, password handling and login attempt limits. Browser checks exercise actual JSON requests and responses. The old Atlas credential in `web-420` history still needs revocation by its owner; this application does not use it.
+
+The app carries its private bearer credential in `X-Demo-Authorization`, because the Azure Static Web Apps gateway reserves the standard `Authorization` header. The value is still validated and hashed by the server; it is never a database credential.
