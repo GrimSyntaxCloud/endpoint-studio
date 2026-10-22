@@ -26,4 +26,4 @@ jobs:
         env:
           MONGODB_URI: ${{ secrets.DEMO_CLEANUP_MONGODB_URI }}
           MONGODB_DATABASE: portfolio-demos
-          MONGODB_endpoint_demo: endpoint_demo
+          MONGODB_COLLECTION: endpoint_demo
