@@ -1,3 +1,4 @@
+const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
 const $ = (s) => document.querySelector(s);
 let resource = "composers",
   catalog,
@@ -6,10 +7,16 @@ let resource = "composers",
   returnedId = "",
   sequence = 0,
   busy = false,
-  motion = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  motion = !motionPreference.matches;
 try {
   session = sessionStorage.getItem("endpoint.workspace") || "";
 } catch {}
+// Keep dynamic labels from reintroducing font-dependent arrow glyphs.
+const actionArrow = $("#workspace svg").cloneNode(true);
+function actionLabel(button, label, withArrow = true) {
+  button.replaceChildren(document.createTextNode(label));
+  if (withArrow) button.append(" ", actionArrow.cloneNode(true));
+}
 const svgNS = "http://www.w3.org/2000/svg";
 for (let i = 0; i < 30; i++) {
   const e = document.createElementNS(svgNS, "ellipse");
@@ -33,9 +40,7 @@ function setSession(value) {
       "Storage is unavailable: keep this tab open to retain your workspace.";
   }
   $("#send").disabled = !value;
-  $("#workspace").textContent = value
-    ? "Workspace active ✓"
-    : "Start private workspace ↗";
+  actionLabel($("#workspace"), value ? "Workspace active ✓" : "Start private workspace", !value);
   $("#workspace").disabled = !!value;
   $("#delete-workspace").hidden = !value;
 }
@@ -267,7 +272,7 @@ $("#send").onclick = async () => {
   } finally {
     busy = false;
     $("#send").disabled = !session;
-    $("#send").textContent = "Send request ↗";
+    actionLabel($("#send"), "Send request");
   }
 };
 $("#copy").onclick = async () => {
@@ -279,17 +284,25 @@ $("#copy").onclick = async () => {
       "Clipboard unavailable. Select and copy the response text.";
   }
 };
+function applyMotion() {
+  document.body.classList.toggle("paused", !motion);
+  $("#motion").setAttribute("aria-pressed", String(!motion));
+  $("#motion").textContent = motion ? "Motion on" : "Motion paused";
+  if (!motion) {
+    for (const selector of ["#status-code", "#orbit"]) {
+      for (const animation of $(selector).getAnimations()) animation.cancel();
+    }
+  }
+}
 $("#motion").onclick = () => {
   motion = !motion;
-  document.body.classList.toggle("paused", !motion);
-  $("#motion").setAttribute("aria-pressed", !motion);
-  $("#motion").textContent = motion ? "Motion on" : "Motion paused";
+  applyMotion();
 };
-if (!motion) {
-  document.body.classList.add("paused");
-  $("#motion").textContent = "Motion paused";
-  $("#motion").setAttribute("aria-pressed", "true");
-}
+motionPreference.addEventListener("change", (event) => {
+  motion = !event.matches;
+  applyMotion();
+});
+applyMotion();
 async function init() {
   try {
     const { response, data } = await api("/api/catalog");
