@@ -800,4 +800,12 @@ svg.compat-arrow {
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), #scenario, #method, #payload {
     font-size: 16px;
   }
+  .request-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .request-line select {
+    width: 100%;
+    max-width: none;
+  }
 }
